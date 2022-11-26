@@ -73,6 +73,8 @@ function m.registerTimer(callback, seconds, ...)
   C_Timer.After(seconds, timerFired)
 end
 
+--TODO passing args in here seems like a hella weird case; think it indicates a very strange design that should probably be avoided
+--not sure why quantify was doing it, but it should have probably been done a different way
 function m.registerCustomEvent(event,func, ...)
   if (custom_event_map[event] == nil) then
     custom_event_map[event] = {}
@@ -132,7 +134,7 @@ function m.hookSecureFunc(func, callback, t)
 end
 
 function m.triggerCustomEvent(event, ...)
-  if (custom_event_map[event] ~= nil) then
+  if (custom_event_map[event]) then
     for _, f in pairs(custom_event_map[event]) do
 
       if (#f.args > 0) then
