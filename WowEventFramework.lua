@@ -85,7 +85,10 @@ end
 
 function m.registerEvent(event, func)
   if not sframe:IsEventRegistered(event) then
-    sframe:RegisterEvent(event)
+    local success = pcall(sframe.RegisterEvent, sframe, event)
+    if (not success) then
+      --TODO logging
+    end
   end
   
   if (event_map[event] == nil) then
